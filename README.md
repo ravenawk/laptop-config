@@ -8,4 +8,4 @@ Should work with most Red Hat and Debian based distros, tested mostly with Fedor
 Lots of things including
 - rework variable names
 - expand out to work with macos 
-  split out a couple tasks to their own roles (ie neovim)
+- split out a couple tasks to their own roles (ie neovim)
