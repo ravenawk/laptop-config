@@ -1,0 +1,103 @@
+---
+# tasks file for roles/setup_user
+- name: Create some groups
+  group:
+    name: "{{ item }}"
+    system: True  # noqa truthy
+    state: present
+  loop: "{{ new_groups }}"
+
+- name: Configure user
+  user:
+    name: "{{ setup_user_name }}"
+    groups: "{{ user_groups }}"
+    append: yes  # noqa truthy
+    generate_ssh_key: yes  # noqa truthy
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+
+- name: Create some directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0700
+    owner: "{{ setup_user_name }}"
+    group: "{{ setup_user_name }}"
+  loop: "{{ user_dirs }}"
+
+- name: Copy config files over
+  copy:
+    src: "{{ item.filename }}"
+    dest: "{{ item.location }}"
+    owner: "{{ setup_user_name }}"
+    group: "{{ setup_user_name }}"
+    mode: "{{ item.perms | default('omit') }}"
+  loop: "{{ setup_user_configs }}"
+
+- name: Find latest neovim release
+  uri:
+    url: https://api.github.com/repos/neovim/neovim/releases/latest
+    return_content: true
+  register: neovim_release
+
+- name: Get Neovim download URL
+  set_fact:
+    dl_url: "{{ neovim_release.json.assets | selectattr('name', 'search', 'nvim.appimage') | list }}"
+
+- name: Download nvim appimage
+  changed_when: False  # noqa truthy
+  get_url:
+    url: https://github.com/neovim/neovim/releases/download/v0.5.1/nvim.appimage
+    dest: /tmp/nvim
+    validate_certs: False  # noqa truthy
+
+- name: Copy nvim
+  copy:
+    src: /tmp/nvim
+    dest: /usr/local/bin/nvim
+    mode: 0755
+
+- name: Remove nvim in tmp dir
+  changed_when: False  # noqa truthy
+  file:
+    name: /tmp/nvim
+    state: absent
+
+- name: Download vim-plug
+  get_url:
+    url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    dest: "/home/{{ setup_user_name }}/.local/share/nvim/site/autoload/plug.vim"
+
+- name: Do some nvim package installs
+  become: True  # noqa truthy
+  become_user: pmartin
+  block:
+    - name: Install plugins for nvim
+      changed_when: False  # noqa truthy
+      command: nvim +'PlugInstall!' +qall
+
+    - name: Upgrade plugins for nvim
+      command: nvim +'PlugUpgrade!' +qall
+      changed_when: False  # noqa truthy
+
+    - name: Install Coc plugins for nvim
+      changed_when: False  # noqa truthy
+      command: "nvim +'CocInstall -sync {{ item }}' +qall"
+      loop:
+        - "@yaegassy/coc-ansible"
+        - coc-pyright
+        - coc-go
+        - coc-sh
+
+    - name: Install Coc plugins for nvim
+      changed_when: False  # noqa truthy
+      command: nvim +CocUpdateSync +qall
+
+- name: Setup some config files
+  template:
+    dest: "{{ item.location }}"
+    src: "{{ item.filename }}"
+    owner: "{{ setup_user_name }}"
+    group: "{{ setup_user_name }}"
+    mode: "{{ item.mode | default(omit) }}"
+  loop: "{{ setup_user_templates }}"

@@ -1,0 +1,4 @@
+---
+- name: Enable some "{{ FAMILY }}" repos
+  include_tasks:
+    file: "{{ FAMILY }}.yml"

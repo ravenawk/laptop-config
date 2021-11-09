@@ -1,0 +1,19 @@
+---
+# tasks file for roles/update_packages
+- name: Update packages on system
+  dnf:
+    name: "*"
+    state: latest  # noqa package-latest
+
+- name: Install some needed packages
+  dnf:
+    name: "{{ packages }}"
+    state: present
+
+- name: Services that need to be started
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: True  # noqa truthy
+  with_items:
+    - sshd

@@ -1,0 +1,13 @@
+---
+- name: Add apt keys
+  apt_key:
+    url: "{{ item.url }}"
+    state: "{{ item.state }}"
+  loop: "{{ aptkeys }}"
+
+- name: Enable additional repos
+  apt_repository:
+    filename: "{{ item.filename }}"
+    repo: "{{ item.repo }}"
+    validate_certs: "{{ item.validate_certs }}"
+  loop: "{{ other_deb_repos }}"

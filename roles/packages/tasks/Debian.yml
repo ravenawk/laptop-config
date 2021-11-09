@@ -1,0 +1,20 @@
+---
+# tasks file for roles/update_packages
+- name: Update packages on system
+  apt:
+    name: "*"
+    state: latest  # noqa package-latest
+    update_cache: True  # noqa truthy
+
+- name: Install some needed packages
+  apt:
+    name: "{{ packages }}"
+    state: present
+
+- name: Services that need to be started
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: yes  # noqa truthy
+  with_items:
+    - ssh

@@ -1,0 +1,10 @@
+---
+- name: Checking out some variables
+  become: True  # noqa truthy
+  hosts: localhost
+  roles:
+    - repos
+    - packages
+    - setup_user
+    - setup_libvirt
+...

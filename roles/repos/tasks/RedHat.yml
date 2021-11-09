@@ -1,0 +1,27 @@
+---
+- name: Install needed package to enable repo
+  yum:
+    name: fedora-workstation-repositories
+    state: latest  # noqa package-latest
+
+- name: Install RPM Fusion repo
+  yum:
+    name: "{{ item }}"
+    disable_gpg_check: true
+  loop: "{{ repos_rpmfusion }}"
+
+- name: Enable google-chrome repo
+  lineinfile:
+    path: /etc/yum.repos.d/google-chrome.repo
+    regexp: '^enabled=0'
+    line: enabled=1
+
+- name: Enable additional repos
+  yum_repository:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    baseurl: "{{ item.baseurl }}"
+    gpgkey: "{{ item.gpgkey }}"
+    enabled: "{{ item.enabled }}"
+    gpgcheck: "{{ item.gpgcheck }}"
+  loop: "{{ other_rpm_repos }}"

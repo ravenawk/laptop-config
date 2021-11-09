@@ -1,0 +1,5 @@
+---
+# tasks file for roles/update_packages
+- name: Call install based on OS family
+  include_tasks:
+    file: "{{ FAMILY }}.yml"

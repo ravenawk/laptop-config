@@ -1,0 +1,6 @@
+---
+- name: Restart libvirtd
+  service:
+    name: libvirtd
+    state: restarted
+    enabled: True  # noqa truthy
