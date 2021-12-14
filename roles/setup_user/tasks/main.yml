@@ -47,7 +47,7 @@
 - name: Download nvim appimage
   changed_when: False  # noqa truthy
   get_url:
-    url: https://github.com/neovim/neovim/releases/download/v0.5.1/nvim.appimage
+    url: https://github.com/neovim/neovim/releases/download/v0.6.0/nvim.appimage
     dest: /tmp/nvim
     validate_certs: False  # noqa truthy
 
