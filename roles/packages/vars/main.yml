@@ -4,6 +4,7 @@ packages: "{{ general_packages  | union(lookup ('vars', FAMILY + '_packages')) }
 
 general_packages:
  - vim
+ - solaar
  - tmux
  - gnome-tweak-tool
  - vlc
