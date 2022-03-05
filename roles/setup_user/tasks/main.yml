@@ -13,8 +13,8 @@
     groups: "{{ user_groups }}"
     append: yes  # noqa truthy
     generate_ssh_key: yes  # noqa truthy
-    ssh_key_bits: 2048
-    ssh_key_file: .ssh/id_rsa
+    ssh_key_type: ed25519
+    ssh_key_file: .ssh/id_ed25519
 
 - name: Create some directories
   file:
