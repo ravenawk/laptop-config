@@ -42,12 +42,13 @@
 
 - name: Get Neovim download URL
   set_fact:
-    dl_url: "{{ neovim_release.json.assets | selectattr('name', 'search', 'nvim.appimage') | list }}"
+    dl_url: "{{ neovim_release.json.assets | selectattr('name', 'equalto', 'nvim.appimage') | map(attribute='browser_download_url') | list }}"
 
 - name: Download nvim appimage
   changed_when: False  # noqa truthy
   get_url:
-    url: https://github.com/neovim/neovim/releases/download/v0.6.0/nvim.appimage
+    url: "{{ dl_url[0] }}"
+    #url: https://github.com/neovim/neovim/releases/download/v0.6.0/nvim.appimage
     dest: /tmp/nvim
     validate_certs: False  # noqa truthy
 
