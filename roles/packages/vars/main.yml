@@ -2,6 +2,12 @@
 # vars file for roles/update_packages---
 packages: "{{ general_packages  | union(lookup ('vars', FAMILY + '_packages')) }}"
 
+flat_packages:
+  - com.bitwarden.desktop
+  - com.discordapp.Discord
+  - com.slack.Slack
+  - net.cozic.joplin_desktop
+  - us.zoom.Zoom
 general_packages:
  - vim
  - solaar
@@ -45,6 +51,7 @@ general_packages:
  - ansible-lint
  - yamllint
  - yarnpkg
+ - hugo
 
 RedHat_packages:
  - mediawriter
@@ -95,5 +102,4 @@ Debian_packages:
  - gns3-server
  - python3.9-venv
  - uml-utilities
- - hugo
  - podman

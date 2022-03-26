@@ -5,15 +5,21 @@
     name: "*"
     state: latest  # noqa package-latest
 
-- name: Install some needed packages
+- name: Install some needed packages with dnf
   dnf:
     name: "{{ packages }}"
     state: present
+
+- name: Install some needed packages with flatpak
+  flatpak:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ flat_packages }}"
 
 - name: Services that need to be started
   service:
     name: "{{ item }}"
     state: started
     enabled: True  # noqa truthy
-  with_items:
+  loop:
     - sshd

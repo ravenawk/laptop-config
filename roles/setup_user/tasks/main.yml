@@ -1,6 +1,6 @@
 ---
 # tasks file for roles/setup_user
-- name: Create some groups
+- name: Create groups
   group:
     name: "{{ item }}"
     system: True  # noqa truthy
@@ -16,7 +16,7 @@
     ssh_key_type: ed25519
     ssh_key_file: .ssh/id_ed25519
 
-- name: Create some directories
+- name: Create directories
   file:
     path: "{{ item }}"
     state: directory
@@ -25,7 +25,7 @@
     group: "{{ setup_user_name }}"
   loop: "{{ user_dirs }}"
 
-- name: Copy config files over
+- name: Copy configs
   copy:
     src: "{{ item.filename }}"
     dest: "{{ item.location }}"
