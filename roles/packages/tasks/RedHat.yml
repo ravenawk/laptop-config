@@ -10,10 +10,17 @@
     name: "{{ packages }}"
     state: present
 
+- name: Add some flatpak remotes
+  flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
 - name: Install some needed packages with flatpak
   flatpak:
     name: "{{ item }}"
     state: present
+    remote: flathub
   loop: "{{ flat_packages }}"
 
 - name: Services that need to be started
