@@ -3,4 +3,4 @@
   service:
     name: libvirtd
     state: restarted
-    enabled: True  # noqa truthy
+    enabled: true

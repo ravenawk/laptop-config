@@ -16,7 +16,10 @@
   changed_when: false
 
 - name: Print out flatpak remote info
-  ansible.builtin.command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  ansible.builtin.command:
+    cmd: >
+      flatpak remote-add --if-not-exists
+      flathub https://flathub.org/repo/flathub.flatpakrepo
   when:
     - "'flathub' in item"
     - "'filter' in item"
@@ -39,6 +42,6 @@
   ansible.builtin.service:
     name: "{{ item }}"
     state: started
-    enabled: True  # noqa truthy
+    enabled: true
   loop:
     - sshd

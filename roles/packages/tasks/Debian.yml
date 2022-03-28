@@ -4,7 +4,7 @@
   apt:
     name: "*"
     state: latest  # noqa package-latest
-    update_cache: True  # noqa truthy
+    update_cache: true
 
 - name: Install some needed packages
   apt:
@@ -15,6 +15,6 @@
   service:
     name: "{{ item }}"
     state: started
-    enabled: yes  # noqa truthy
+    enabled: true
   with_items:
     - ssh
