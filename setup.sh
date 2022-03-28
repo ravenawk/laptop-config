@@ -16,13 +16,13 @@ esac
 
 if [[ $FAMILY == "RedHat" ]]; then
     if !(rpm -qa | grep -q ansible); then
-        dnf -y install ansible
+        sudo dnf -y install ansible
     fi
 fi
 
 if [[ $FAMILY == "Debian" ]]; then
     if !(apt list --installed | grep -q ansible); then
-        apt -y install ansible
+        sudo apt -y install ansible
     fi
 fi
 

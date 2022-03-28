@@ -10,19 +10,14 @@
     disable_gpg_check: true
   loop: "{{ repos_rpmfusion }}"
 
-#- name: Enable google-chrome repo
-  #lineinfile:
-    #path: /etc/yum.repos.d/google-chrome.repo
-    #regexp: '^enabled=0'
-    #line: enabled=1
-
 - name: Enable google-chrome repo
   ini_file:
     path: /etc/yum.repos.d/google-chrome.repo
     section: google-chrome
     option: enabled
     value: 1
-    
+    mode: 0644
+
 - name: Enable additional repos
   yum_repository:
     name: "{{ item.name }}"

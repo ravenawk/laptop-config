@@ -1,7 +1,8 @@
 ---
 - name: Checking out some variables
-  become: True  # noqa truthy
-  hosts: localhost
+  become: true
+  hosts: nodes
+  pre_tasks:
   roles:
     - repos
     - packages

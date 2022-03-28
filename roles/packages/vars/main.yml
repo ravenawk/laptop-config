@@ -1,6 +1,6 @@
 ---
 # vars file for roles/update_packages---
-packages: "{{ general_packages  | union(lookup ('vars', FAMILY + '_packages')) }}"
+packages: "{{ general_packages  | union(lookup ('vars', ( FAMILY | lower) + '_packages')) }}"
 
 flat_packages:
   - com.bitwarden.desktop
@@ -9,97 +9,97 @@ flat_packages:
   - net.cozic.joplin_desktop
   - us.zoom.Zoom
 general_packages:
- - vim
- - solaar
- - tmux
- - gnome-tweak-tool
- - vlc
- - qpdf
- - minicom
- - code
- - sublime-text
- - audacity
- - lutris
- - nmap
- - telnet
- - curl
- - calibre
- - syncthing
- - steam
- - vagrant
- - google-chrome-stable
- - qemu
- - qemu-kvm
- - dynamips
- - psutils
- - wireshark
- - yamllint
- - golang
- - xdotool
- - wmctrl
- - python3-netaddr
- - python3-networkmanager
- - cmake
- - nodejs
- - pv
- - zsh
- - zsh-syntax-highlighting
- - brave-browser
- - deja-dup
- - ansible
- - ubridge
- - ansible-lint
- - yamllint
- - yarnpkg
- - hugo
+  - vim
+  - solaar
+  - tmux
+  - gnome-tweak-tool
+  - vlc
+  - qpdf
+  - minicom
+  - code
+  - sublime-text
+  - audacity
+  - lutris
+  - nmap
+  - telnet
+  - curl
+  - calibre
+  - syncthing
+  - steam
+  - vagrant
+  - google-chrome-stable
+  - qemu
+  - qemu-kvm
+  - dynamips
+  - psutils
+  - wireshark
+  - yamllint
+  - golang
+  - xdotool
+  - wmctrl
+  - python3-netaddr
+  - python3-networkmanager
+  - cmake
+  - nodejs
+  - pv
+  - zsh
+  - zsh-syntax-highlighting
+  - brave-browser
+  - deja-dup
+  - ansible
+  - ubridge
+  - ansible-lint
+  - yamllint
+  - yarnpkg
+  - hugo
 
-RedHat_packages:
- - mediawriter
- - cascadia-code-fonts
- - mozilla-fira-mono-fonts
- - mozilla-fira-sans-fonts
- - powerline-fonts
- - fira-code-fonts
- - NetworkManager-openvpn
- - NetworkManager-openvpn-gnome
- - gns3-server
- - gns3-gui
- - wireshark-cli
- - tunctl
- - libvirt-client
- - gstreamer1-libav
- - gstreamer1-plugins-bad-freeworld
- - gnome-extensions-app
- - nextcloud-client
- - python3-pylint
- - python3-devel
- - ruby-devel
- - openssl-devel
- - fontawesome-fonts
- - spice-protocol
- - golang-x-tools-gopls
- - '@Development Tools'
- - '@Virtualization'
+redhat_packages:
+  - mediawriter
+  - cascadia-code-fonts
+  - mozilla-fira-mono-fonts
+  - mozilla-fira-sans-fonts
+  - powerline-fonts
+  - fira-code-fonts
+  - NetworkManager-openvpn
+  - NetworkManager-openvpn-gnome
+  - gns3-server
+  - gns3-gui
+  - wireshark-cli
+  - tunctl
+  - libvirt-client
+  - gstreamer1-libav
+  - gstreamer1-plugins-bad-freeworld
+  - gnome-extensions-app
+  - nextcloud-client
+  - python3-pylint
+  - python3-devel
+  - ruby-devel
+  - openssl-devel
+  - fontawesome-fonts
+  - spice-protocol
+  - golang-x-tools-gopls
+  - '@Development Tools'
+  - '@Virtualization'
 
-Debian_packages:
- - fonts-cascadia-code
- - fonts-firacode
- - network-manager-openvpn
- - network-manager-openvpn-gnome
- - wireshark-common
- - wireshark-gtk
- - gstreamer1.0-libav
- - gstreamer1.0-plugins-bad
- - pylint
- - python3-dev
- - ruby-dev
- - virt-manager
- - ssh
- - npm
- - nextcloud-desktop
- - nautilus-nextcloud
- - gns3-gui
- - gns3-server
- - python3.9-venv
- - uml-utilities
- - podman
+debian_packages:
+  - fonts-cascadia-code
+  - fonts-firacode
+  - network-manager-openvpn
+  - network-manager-openvpn-gnome
+  - wireshark-common
+  - wireshark-gtk
+  - gstreamer1.0-libav
+  - gstreamer1.0-plugins-bad
+  - pylint
+  - python3-dev
+  - ruby-dev
+  - virt-manager
+  - ssh
+  - npm
+  - nextcloud-desktop
+  - nautilus-nextcloud
+  - gns3-gui
+  - gns3-server
+  - python3.9-venv
+  - uml-utilities
+  - podman
