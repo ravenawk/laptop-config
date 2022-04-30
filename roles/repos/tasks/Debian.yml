@@ -11,3 +11,4 @@
     repo: "{{ item.repo }}"
     validate_certs: "{{ item.validate_certs }}"
   loop: "{{ other_deb_repos }}"
+  when: item.pkg_check not in ansible_facts.packages

@@ -4,6 +4,9 @@
   connection: local
   hosts: nodes
   pre_tasks:
+  - name: gather package facts
+    ansible.builtin.package_facts:
+
   roles:
     - repos
     - packages

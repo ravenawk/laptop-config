@@ -28,22 +28,27 @@ other_deb_repos:
     repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
     state: present
     validate_certs: false
+    pkg_check: "code"
   - filename: google-chrome
     repo: deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
     state: present
     validate_certs: false
+    pkg_check: "google-chrome-stable"
   - filename: sublime-text
     repo: deb [arch=amd64] https://download.sublimetext.com/ apt/stable/
     state: present
     validate_certs: false
+    pkg_check: "sublime-text"
   - filename: gns3
     repo: ppa:gns3/ppa
     state: present
     validate_certs: false
+    pkg_check: "gns3-gui"
   - filename: brave-browser
     repo: deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main
     state: present
     validate_certs: false
+    pkg_check: "brave-browser"
 
 aptkeys:
   - url: https://packages.microsoft.com/keys/microsoft.asc
