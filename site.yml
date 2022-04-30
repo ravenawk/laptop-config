@@ -1,6 +1,7 @@
 ---
 - name: Checking out some variables
   become: true
+  connection: local
   hosts: nodes
   pre_tasks:
   roles:

@@ -12,7 +12,6 @@ general_packages:
   - vim
   - solaar
   - tmux
-  - gnome-tweak-tool
   - vlc
   - qpdf
   - minicom
@@ -55,6 +54,7 @@ general_packages:
 
 redhat_packages:
   - mediawriter
+  - python3.9-venv
   - cascadia-code-fonts
   - mozilla-fira-mono-fonts
   - mozilla-fira-sans-fonts
@@ -64,6 +64,7 @@ redhat_packages:
   - NetworkManager-openvpn-gnome
   - gns3-server
   - gns3-gui
+  - gnome-tweak-tool
   - wireshark-cli
   - tunctl
   - libvirt-client
@@ -100,6 +101,6 @@ debian_packages:
   - nautilus-nextcloud
   - gns3-gui
   - gns3-server
-  - python3.9-venv
   - uml-utilities
   - podman
+  - python3-venv
