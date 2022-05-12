@@ -1,6 +1,14 @@
 ---
-# tasks file for roles/update_packages
-- name: Update packages on system
+- name: Update dnf.conf
+  community.general.ini_file:
+    path: "/etc/dnf/dnf.conf"
+    section: main
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    mode: '0644'
+  loop: "{{ dnf_options }}"
+
+- name: Update packages
   ansible.builtin.dnf:
     name: "*"
     state: latest  # noqa package-latest

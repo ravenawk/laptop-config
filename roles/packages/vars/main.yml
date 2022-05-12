@@ -54,7 +54,6 @@ general_packages:
 
 redhat_packages:
   - mediawriter
-  - python3.9-venv
   - cascadia-code-fonts
   - mozilla-fira-mono-fonts
   - mozilla-fira-sans-fonts
@@ -104,3 +103,10 @@ debian_packages:
   - uml-utilities
   - podman
   - python3-venv
+dnf_options:
+  - option: fastestmirror
+    value: true
+  - option: deltarpm
+    value: true
+  - option: max_parallel_downloads
+    value: 10
