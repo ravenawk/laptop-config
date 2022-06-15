@@ -8,6 +8,7 @@ flat_packages:
   - com.slack.Slack
   - net.cozic.joplin_desktop
   - us.zoom.Zoom
+  - org.signal.Signal
 general_packages:
   - vim
   - solaar
