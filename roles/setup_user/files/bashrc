@@ -4,6 +4,10 @@
 export EDITOR='vi'
 export VISUAL='vi'
 
+# Setup some golang vars
+export GOPATH=$HOME/go
+export PATH="$PATH:$GOPATH/bin"
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc

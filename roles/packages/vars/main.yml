@@ -9,6 +9,7 @@ flat_packages:
   - net.cozic.joplin_desktop
   - us.zoom.Zoom
   - org.signal.Signal
+  - com.synology.SynologyDrive
 general_packages:
   - vim
   - solaar
@@ -71,7 +72,6 @@ redhat_packages:
   - gstreamer1-libav
   - gstreamer1-plugins-bad-freeworld
   - gnome-extensions-app
-  - nextcloud-client
   - python3-pylint
   - python3-devel
   - ruby-devel
@@ -97,8 +97,6 @@ debian_packages:
   - virt-manager
   - ssh
   - npm
-  - nextcloud-desktop
-  - nautilus-nextcloud
   - gns3-gui
   - gns3-server
   - uml-utilities
