@@ -12,6 +12,7 @@ flat_packages:
   - com.synology.SynologyDrive
 general_packages:
   - vim
+  - xclip
   - solaar
   - tmux
   - vlc
@@ -53,6 +54,12 @@ general_packages:
   - yamllint
   - yarnpkg
   - hugo
+  - fd-find
+  - cargo
+  - luarocks
+  - python3-neovim
+  - tree-sitter-cli
+  - ripgrep
 
 redhat_packages:
   - mediawriter
