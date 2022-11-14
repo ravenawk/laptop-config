@@ -60,6 +60,7 @@ general_packages:
   - python3-neovim
   - tree-sitter-cli
   - ripgrep
+  - clang
 
 redhat_packages:
   - mediawriter
