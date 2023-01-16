@@ -3,6 +3,8 @@
   become: true
   connection: local
   hosts: nodes
+  vars:
+    setup_user_name: pmartin
   pre_tasks:
   - name: gather package facts
     ansible.builtin.package_facts:
@@ -11,5 +13,6 @@
     - repos
     - packages
     - setup_user
+    - dotfiles
     - setup_libvirt
 ...

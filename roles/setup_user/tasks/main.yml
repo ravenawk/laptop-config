@@ -25,15 +25,6 @@
     group: "{{ setup_user_name }}"
   loop: "{{ user_dirs }}"
 
-- name: Copy configs
-  copy:
-    src: "{{ item.filename }}"
-    dest: "{{ item.location }}"
-    owner: "{{ setup_user_name }}"
-    group: "{{ setup_user_name }}"
-    mode: "{{ item.perms | default('omit') }}"
-  loop: "{{ setup_user_configs }}"
-
 - name: Find latest neovim release
   uri:
     url: https://api.github.com/repos/neovim/neovim/releases/latest
@@ -48,7 +39,6 @@
   changed_when: false
   get_url:
     url: "{{ dl_url[0] }}"
-    # url: https://github.com/neovim/neovim/releases/download/v0.6.0/nvim.appimage
     dest: /tmp/nvim
     validate_certs: false
 
@@ -63,43 +53,4 @@
   file:
     name: /tmp/nvim
     state: absent
-
-- name: Download vim-plug
-  get_url:
-    url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    dest: "/home/{{ setup_user_name }}/.local/share/nvim/site/autoload/plug.vim"
-
-- name: Do some nvim package installs
-  become: True  # noqa truthy
-  become_user: pmartin
-  block:
-    - name: Install plugins for nvim
-      changed_when: False  # noqa truthy
-      command: nvim +'PlugInstall!' +qall
-
-    - name: Upgrade plugins for nvim
-      command: nvim +'PlugUpgrade!' +qall
-      changed_when: False  # noqa truthy
-
-    - name: Install Coc plugins for nvim
-      changed_when: False  # noqa truthy
-      command: "nvim +'CocInstall -sync {{ item }}' +qall"
-      loop:
-        - "@yaegassy/coc-ansible"
-        - coc-pyright
-        - coc-go
-        - coc-sh
-
-    - name: Install Coc plugins for nvim
-      changed_when: False  # noqa truthy
-      command: nvim +CocUpdateSync +qall
-
-- name: Setup some config files
-  template:
-    dest: "{{ item.location }}"
-    src: "{{ item.filename }}"
-    owner: "{{ setup_user_name }}"
-    group: "{{ setup_user_name }}"
-    mode: "{{ item.mode | default(omit) }}"
-  loop: "{{ setup_user_templates }}"
 ...

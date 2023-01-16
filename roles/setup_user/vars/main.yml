@@ -1,39 +1,10 @@
 ---
-setup_user_name: pmartin
-gitname: "William Martin"
-gitemail: "wpmartin@gmail.com"
-
 nvim_appimage_path: "/home/{{ setup_user_name }}/.local/bin/nvim.appimage"
-
-setup_user_configs:
-  - filename: vimrc
-    location: /home/{{ setup_user_name }}/.vim/vimrc
-  - filename: init.vim
-    location: /home/{{ setup_user_name }}/.config/nvim/init.vim
-  - filename: coc-settings.json
-    location: /home/{{ setup_user_name }}/.config/nvim/coc-settings.json
-  - filename: aliases
-    location: /home/{{ setup_user_name }}/.aliases
-  - filename: zshrc
-    location: /home/{{ setup_user_name }}/.oh-my-zsh/custom/custom.zsh
-  - filename: bashrc
-    location: /home/{{ setup_user_name }}/.bashrc
-  - filename: tmux.conf
-    location: /home/{{ setup_user_name }}/.tmux.conf
-  - filename: ssh_config
-    location: /home/{{ setup_user_name }}/.ssh/config
-    perms: '0700'
 
 user_dirs:
   - "/home/{{ setup_user_name }}/.local/bin"
   - "/home/{{ setup_user_name }}/Documents/Projects"
   - "/home/{{ setup_user_name }}/Projects"
-  - "/home/{{ setup_user_name }}/.config/nvim"
-  - "/home/{{ setup_user_name }}/.vim/autoload"
-  - "/home/{{ setup_user_name }}/.vim/nododir"
-  - "/home/{{ setup_user_name }}/.local/share/nvim/site/autoload"
-  - "/home/{{ setup_user_name }}/.oh-my-zsh/custom"
-  - "/home/{{ setup_user_name }}/.vim/undodir"
 
 new_groups:
   - netdev
@@ -43,7 +14,3 @@ user_groups:
   - libvirt
   - dialout
   - netdev
-
-setup_user_templates:
-  - filename: gitconfig
-    location: /home/{{ setup_user_name }}/.gitconfig

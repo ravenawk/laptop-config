@@ -10,6 +10,8 @@ flat_packages:
   - us.zoom.Zoom
   - org.signal.Signal
   - com.synology.SynologyDrive
+  - com.spotify.Client
+  - org.wezfurlong.wezterm
 general_packages:
   - vim
   - xclip

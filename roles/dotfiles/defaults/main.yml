@@ -1,0 +1,3 @@
+---
+dotfiles_path: "/home/{{ setup_user_name }}/.dotfiles/"
+dotfiles_repo: "https://gitlab.com/wpmartin/dotfiles.git"

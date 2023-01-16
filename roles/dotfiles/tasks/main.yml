@@ -1,0 +1,29 @@
+---
+- name: Setup dotfiles for use
+  block:
+    - name: Creat directories
+      ansible.builtin.file:
+        path: "{{ dotfiles_path }}"
+        state: directory
+        mode: 0770
+        owner: 'pmartin'
+        group: 'pmartin'
+
+    - name: Clone dotfile repo
+      ansible.builtin.git:
+        repo: "{{ dotfiles_repo }}"
+        dest: "{{ dotfiles_path }}"
+        accept_newhostkey: true
+        bare: true
+        version: main
+      notify:
+        - Update dotfiles
+
+    - name: Put an ignore for other files in
+      community.general.git_config:
+        file: "{{ dotfiles_path }}/config"
+        scope: file
+        name: status.showUntrackedFiles
+        value: 'no'
+  become: true
+  become_user: pmartin

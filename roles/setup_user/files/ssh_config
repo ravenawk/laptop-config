@@ -1,3 +1,0 @@
-Host bitbucket.org
-    User git
-    PubkeyAcceptedKeyTypes ssh-rsa
