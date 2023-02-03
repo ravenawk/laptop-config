@@ -6,3 +6,5 @@
     - "checkout -f"
     - stash
     - stash clear
+  become_user: pmartin
+  become: true
