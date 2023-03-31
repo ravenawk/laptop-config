@@ -12,6 +12,7 @@
   ansible.builtin.dnf:
     name: "*"
     state: latest  # noqa package-latest
+  register: needs_reboot_pkgs
 
 - name: Install some needed packages with dnf
   ansible.builtin.dnf:
@@ -53,3 +54,9 @@
     enabled: true
   loop:
     - sshd
+
+- name: Check if reboot is needed
+  ansible.builtin.command: dnf needs-restarting -r
+  register: needs_reboot
+  changed_when: False
+...

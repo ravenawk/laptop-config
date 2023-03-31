@@ -9,6 +9,7 @@ flat_packages:
   - net.cozic.joplin_desktop
   - us.zoom.Zoom
   - org.signal.Signal
+  - com.todoist.Todoist
   - com.synology.SynologyDrive
   - com.spotify.Client
   - org.wezfurlong.wezterm

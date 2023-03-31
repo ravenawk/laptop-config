@@ -5,6 +5,7 @@
   hosts: nodes
   vars:
     setup_user_name: pmartin
+
   pre_tasks:
   - name: gather package facts
     ansible.builtin.package_facts:
@@ -15,4 +16,9 @@
     - setup_user
     - dotfiles
     - setup_libvirt
+
+  tasks:
+    - name: Print out reboot var
+      debug:
+        var: needs_reboot.stdout
 ...
