@@ -58,5 +58,6 @@
 - name: Check if reboot is needed
   ansible.builtin.command: dnf needs-restarting -r
   register: needs_reboot
-  changed_when: False
+  ignore_errors: true
+  changed_when: false
 ...
