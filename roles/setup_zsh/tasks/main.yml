@@ -6,6 +6,12 @@
     state: directory
     mode: 0700
 
+- name: Print out plugin_path
+  debug:
+    var: plugin_path
+    verbosity: 1
+
+
 - name: Pull all zsh plugins to folder
   ansible.builtin.git:
     repo: '{{ github }}{{ item.repo }}'
