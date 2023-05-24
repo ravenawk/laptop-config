@@ -30,4 +30,4 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 	FAMILY=MacOS	
 fi
 
-ansible-playbook site.yml -e FAMILY=$FAMILY
+ansible-playbook site.yml -e FAMILY=$FAMILY -K

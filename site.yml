@@ -1,6 +1,6 @@
 ---
 - name: Checking out some variables
-  become: true
+  become: false
   connection: local
   hosts: nodes
   vars:
@@ -11,12 +11,15 @@
     ansible.builtin.package_facts:
 
   roles:
-    - repos
-    - packages
+    - name: repos
+      become: true
+    - name: packages
+      become: true
     - setup_user
     - dotfiles
     - setup_zsh
-    - setup_libvirt
+    - name: setup_libvirt
+      become: true
 
   tasks:
     - name: Print out reboot var
