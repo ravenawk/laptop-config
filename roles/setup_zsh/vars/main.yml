@@ -1,0 +1,13 @@
+---
+plugin_path: $HOME/.config/zsh-plugins
+github: https://github.com
+plugin_repos:
+  - dest: /spaceship
+    repo: /spaceship-prompt/spaceship-prompt.git
+    depth: 1
+  - dest: /zsh-autosuggestions
+    repo: /zsh-users/zsh-autosuggestions.git
+    depth: 1
+  - dest: /zsh-syntax-highlighting
+    repo: /zsh-users/zsh-syntax-highlighting.git
+    depth: 1

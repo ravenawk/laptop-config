@@ -1,0 +1,15 @@
+---
+- name: Create plugin directory
+  ansible.builtin.file:
+    path: '{{ plugin_path }}'
+    owner: pmartin
+    state: directory
+    mode: 0700
+
+- name: Pull all zsh plugins to folder
+  ansible.builtin.git:
+    repo: '{{ github }}{{ item.repo }}'
+    dest: '{{ plugin_path }}{{ item.dest }}'
+    depth: '{{ item.depth | default(omit) }}'
+  loop: '{{ plugin_repos }}'
+
