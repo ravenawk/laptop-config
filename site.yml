@@ -17,8 +17,10 @@
       when: FAMILY != 'MacOS'
     - name: packages
       become: true
-        #    - setup_user
-        #- dotfiles
+    - setup_user
+      when: FAMILY != 'MacOS'
+    - dotfiles
+      when: FAMILY != 'MacOS'
     - setup_zsh
     - name: setup_libvirt
       become: true
