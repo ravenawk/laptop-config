@@ -5,4 +5,5 @@
     state: latest
     update_homebrew: true
     upgrade_all: true
-    
+  become: false
+...

@@ -9,20 +9,24 @@
   pre_tasks:
   - name: gather package facts
     ansible.builtin.package_facts:
+    when: FAMILY != 'MacOS'
 
   roles:
     - name: repos
       become: true
+      when: FAMILY != 'MacOS'
     - name: packages
       become: true
-    - setup_user
-    - dotfiles
+        #    - setup_user
+        #- dotfiles
     - setup_zsh
     - name: setup_libvirt
       become: true
+      when: FAMILY != 'MacOS'
 
   tasks:
     - name: Print out reboot var
       debug:
         var: needs_reboot.stdout
+      when: FAMILY != 'MacOS'
 ...
