@@ -115,6 +115,16 @@ debian_packages:
   - uml-utilities
   - podman
   - python3-venv
+macos_packages:
+  - ansible
+  - zsh
+  - go
+  - fzf
+  - neovim
+  - tree
+  - tmux
+  - podman
+  - tree-sitter
 dnf_options:
   - option: fastestmirror
     value: true
