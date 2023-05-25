@@ -29,6 +29,7 @@
     - name: packages
       become: true
     - name: setup_user
+      become: true
     - name: dotfiles
     - setup_zsh
     - name: setup_libvirt
