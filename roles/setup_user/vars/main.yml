@@ -1,10 +1,10 @@
 ---
-nvim_appimage_path: "/home/{{ setup_user_name }}/.local/bin/nvim.appimage"
+nvim_appimage_path: "{{ user_home }}/.local/bin/nvim.appimage"
 
 user_dirs:
-  - "/home/{{ setup_user_name }}/.local/bin"
-  - "/home/{{ setup_user_name }}/Documents/Projects"
-  - "/home/{{ setup_user_name }}/Projects"
+  - "{{ user_home}}/.local/bin"
+  - "{{ user_home }}/Documents/Projects"
+  - "{{ user_home }}/Projects"
 
 new_groups:
   - netdev

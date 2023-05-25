@@ -6,8 +6,8 @@
         path: "{{ dotfiles_path }}"
         state: directory
         mode: 0770
-        owner: 'pmartin'
-        group: 'pmartin'
+        owner: '{{ setup_user_name }}'
+        group: '{{ setup_user_group }}'
 
     - name: Clone dotfile repo
       ansible.builtin.git:

@@ -4,12 +4,23 @@
   connection: local
   hosts: nodes
   vars:
-    setup_user_name: pmartin
+    setup_user_name: 'pmartin'
+    setup_user_group: '{{(FAMILY != "MacOS") | ternary(setup_user_name, "staff")}}'
 
   pre_tasks:
   - name: gather package facts
     ansible.builtin.package_facts:
     when: FAMILY != 'MacOS'
+
+  - name: Get user stat
+    ansible.builtin.user:
+      name: '{{ setup_user_name }}'
+    check_mode: true
+    register: user_stat
+
+  - name: Display user_stat
+    set_fact:
+      user_home: '{{ user_stat.home }}'
 
   roles:
     - name: repos
@@ -18,9 +29,7 @@
     - name: packages
       become: true
     - name: setup_user
-      when: FAMILY != 'MacOS'
     - name: dotfiles
-      when: FAMILY != 'MacOS'
     - setup_zsh
     - name: setup_libvirt
       become: true
@@ -32,3 +41,4 @@
         var: needs_reboot.stdout
       when: FAMILY != 'MacOS'
 ...
+

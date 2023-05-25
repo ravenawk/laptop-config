@@ -1,10 +1,10 @@
 ---
 - name: Update dotfiles
   # Only way I could find to get the bare repo and then clean out the stashes
-  ansible.builtin.shell: git --git-dir=/home/pmartin/.dotfiles/ --work-tree=/home/pmartin {{ item }}
+  ansible.builtin.shell: git --git-dir={{ dotfiles_path }} --work-tree={{ user_home }} {{ item }}
   loop:
     - "checkout -f"
     - stash
     - stash clear
-  become_user: pmartin
+  become_user: '{{ setup_user_name }}'
   become: true

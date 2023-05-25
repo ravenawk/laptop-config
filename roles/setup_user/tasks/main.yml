@@ -6,12 +6,13 @@
     system: true
     state: present
   loop: "{{ new_groups }}"
+  when: FAMILY != 'MacOS'
 
 - name: Configure user
   user:
     name: "{{ setup_user_name }}"
-    groups: "{{ user_groups }}"
-    append: true
+    groups: "{{ (FAMILY != 'MacOS') | ternary(user_groups, omit) }}"
+    append: "{{ (FAMILY != 'MacOS') | ternary(true, omit) }}"
     generate_ssh_key: true
     ssh_key_type: ed25519
     ssh_key_file: .ssh/id_ed25519
@@ -22,35 +23,37 @@
     state: directory
     mode: 0700
     owner: "{{ setup_user_name }}"
-    group: "{{ setup_user_name }}"
+    group: "{{ (FAMILY != 'MacOS') | ternary(user_groups, omit) }}"
   loop: "{{ user_dirs }}"
 
-- name: Find latest neovim release
-  uri:
-    url: https://api.github.com/repos/neovim/neovim/releases/latest
-    return_content: true
-  register: neovim_release
+- block:
+  - name: Find latest neovim release
+    uri:
+      url: https://api.github.com/repos/neovim/neovim/releases/latest
+      return_content: true
+    register: neovim_release
 
-- name: Get Neovim download URL
-  set_fact:
-    dl_url: "{{ neovim_release.json.assets | selectattr('name', 'equalto', 'nvim.appimage') | map(attribute='browser_download_url') | list }}"
+  - name: Get Neovim download URL
+    set_fact:
+      dl_url: "{{ neovim_release.json.assets | selectattr('name', 'equalto', 'nvim.appimage') | map(attribute='browser_download_url') | list }}"
 
-- name: Download nvim appimage
-  changed_when: false
-  get_url:
-    url: "{{ dl_url[0] }}"
-    dest: /tmp/nvim
-    validate_certs: false
+  - name: Download nvim appimage
+    changed_when: false
+    get_url:
+      url: "{{ dl_url[0] }}"
+      dest: /tmp/nvim
+      validate_certs: false
 
-- name: Copy nvim
-  copy:
-    src: /tmp/nvim
-    dest: /usr/local/bin/nvim
-    mode: 0755
+  - name: Copy nvim
+    copy:
+      src: /tmp/nvim
+      dest: /usr/local/bin/nvim
+      mode: 0755
 
-- name: Remove nvim in tmp dir
-  changed_when: false
-  file:
-    name: /tmp/nvim
-    state: absent
+  - name: Remove nvim in tmp dir
+    changed_when: false
+    file:
+      name: /tmp/nvim
+      state: absent
+  when: FAMILY != 'MacOS'
 ...
