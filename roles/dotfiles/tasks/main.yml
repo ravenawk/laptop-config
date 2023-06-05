@@ -1,11 +1,13 @@
 ---
 - name: Setup dotfiles for use
+  become: true
+  become_user: pmartin
   block:
     - name: Creat directories
       ansible.builtin.file:
         path: "{{ dotfiles_path }}"
         state: directory
-        mode: 0770
+        mode: '0770'
         owner: '{{ setup_user_name }}'
         group: '{{ setup_user_group }}'
 
@@ -25,5 +27,3 @@
         scope: file
         name: status.showUntrackedFiles
         value: 'no'
-  become: true
-  become_user: pmartin
