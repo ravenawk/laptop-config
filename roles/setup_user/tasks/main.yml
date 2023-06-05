@@ -14,6 +14,7 @@
     groups: "{{ (FAMILY != 'MacOS') | ternary(user_groups, omit) }}"
     append: "{{ (FAMILY != 'MacOS') | ternary(true, omit) }}"
     generate_ssh_key: true
+    shell: /bin/zsh
     ssh_key_type: ed25519
     ssh_key_file: .ssh/id_ed25519
 
@@ -23,7 +24,7 @@
     state: directory
     mode: 0700
     owner: "{{ setup_user_name }}"
-    group: "{{ (FAMILY != 'MacOS') | ternary(user_groups, omit) }}"
+    group: "{{ setup_user_group }}"
   loop: "{{ user_dirs }}"
 
 - block:
