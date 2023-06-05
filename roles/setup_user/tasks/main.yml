@@ -1,7 +1,7 @@
 ---
 # tasks file for roles/setup_user
 - name: Create groups
-  group:
+  ansible.builtin.group:
     name: "{{ item }}"
     system: true
     state: present
@@ -9,7 +9,7 @@
   when: FAMILY != 'MacOS'
 
 - name: Configure user
-  user:
+  ansible.builtin.user:
     name: "{{ setup_user_name }}"
     groups: "{{ (FAMILY != 'MacOS') | ternary(user_groups, omit) }}"
     append: "{{ (FAMILY != 'MacOS') | ternary(true, omit) }}"
@@ -19,23 +19,24 @@
     ssh_key_file: .ssh/id_ed25519
 
 - name: Create directories
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
-    mode: 0700
+    mode: '0700'
     owner: "{{ setup_user_name }}"
     group: "{{ setup_user_group }}"
   loop: "{{ user_dirs }}"
 
-- block:
+- name: Install Neovim when OS not MacOS
+  block:
   - name: Find latest neovim release
-    uri:
+    ansible.builtin.uri:
       url: https://api.github.com/repos/neovim/neovim/releases/latest
       return_content: true
     register: neovim_release
 
   - name: Get Neovim download URL
-    set_fact:
+    ansible.builtin.set_fact:
       dl_url: "{{ neovim_release.json.assets | selectattr('name', 'equalto', 'nvim.appimage') | map(attribute='browser_download_url') | list }}"
 
   - name: Download nvim appimage
@@ -46,14 +47,14 @@
       validate_certs: false
 
   - name: Copy nvim
-    copy:
+    ansible.builtin.copy:
       src: /tmp/nvim
       dest: /usr/local/bin/nvim
-      mode: 0755
+      mode: '0755'
 
   - name: Remove nvim in tmp dir
     changed_when: false
-    file:
+    ansible.builtin.file:
       name: /tmp/nvim
       state: absent
   when: FAMILY != 'MacOS'
