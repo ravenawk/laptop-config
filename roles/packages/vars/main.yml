@@ -52,7 +52,6 @@ general_packages:
   - brave-browser
   - deja-dup
   - ansible
-  - ubridge
   - ansible-lint
   - yamllint
   - yarnpkg
@@ -61,7 +60,6 @@ general_packages:
   - cargo
   - luarocks
   - python3-neovim
-  - tree-sitter-cli
   - ripgrep
   - clang
 
@@ -74,8 +72,6 @@ redhat_packages:
   - fira-code-fonts
   - NetworkManager-openvpn
   - NetworkManager-openvpn-gnome
-  - gns3-server
-  - gns3-gui
   - gnome-tweak-tool
   - wireshark-cli
   - tunctl
@@ -110,8 +106,6 @@ debian_packages:
   - virt-manager
   - ssh
   - npm
-  - gns3-gui
-  - gns3-server
   - uml-utilities
   - podman
   - python3-venv

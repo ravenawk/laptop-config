@@ -39,11 +39,6 @@ other_deb_repos:
     state: present
     validate_certs: false
     pkg_check: "sublime-text"
-  - filename: gns3
-    repo: ppa:gns3/ppa
-    state: present
-    validate_certs: false
-    pkg_check: "gns3-gui"
   - filename: brave-browser
     repo: deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main
     state: present

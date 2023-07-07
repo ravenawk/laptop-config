@@ -18,3 +18,31 @@
     enabled: true
   with_items:
     - ssh
+
+- name: Get flatpak remote info
+  ansible.builtin.command: flatpak remotes
+  register: _flatpak_remotes
+  changed_when: false
+
+- name: Print out flatpak remote info
+  ansible.builtin.command:
+    cmd: >
+      flatpak remote-add --if-not-exists
+      flathub https://flathub.org/repo/flathub.flatpakrepo
+  when:
+    - "'flathub' in item"
+    - "'filter' in item"
+  loop: "{{ _flatpak_remotes.stdout_lines }}"
+
+- name: Add some flatpak remotes
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+- name: Install some needed packages with flatpak
+  community.general.flatpak:
+    name: "{{ item }}"
+    state: present
+    remote: flathub
+  loop: "{{ flat_packages }}"
