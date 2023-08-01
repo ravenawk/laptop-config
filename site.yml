@@ -1,45 +1,44 @@
 ---
-- name: Checking out some variables
-  become: false
-  connection: local
+- name: Setting up after a fresh install
   hosts: nodes
+  connection: local
+  become: false
   vars:
     setup_user_name: 'pmartin'
     setup_user_group: '{{(FAMILY != "MacOS") | ternary(setup_user_name, "staff")}}'
 
   pre_tasks:
-  - name: gather package facts
-    ansible.builtin.package_facts:
-    when: FAMILY != 'MacOS'
+    - name: Gather package facts
+      ansible.builtin.package_facts:
+      when: FAMILY != 'MacOS'
 
-  - name: Get user stat
-    ansible.builtin.user:
-      name: '{{ setup_user_name }}'
-    check_mode: true
-    register: user_stat
+    - name: Get user stat
+      ansible.builtin.user:
+        name: '{{ setup_user_name }}'
+      check_mode: true
+      register: user_stat
 
-  - name: Display user_stat
-    set_fact:
-      user_home: '{{ user_stat.home }}'
+    - name: Display user_stat
+      ansible.builtin.set_fact:
+        user_home: '{{ user_stat.home }}'
 
   roles:
-    - name: repos
+    - role: repos
       become: true
       when: FAMILY != 'MacOS'
-    - name: packages
+    - role: packages
       become: true
-    - name: setup_user
+    - role: setup_user
       become: true
-    - name: dotfiles
-    - setup_zsh
-    - name: setup_libvirt
+    - role: dotfiles
+    - role: setup_zsh
+    - role: setup_libvirt
       become: true
       when: FAMILY != 'MacOS'
 
   tasks:
     - name: Print out reboot var
-      debug:
+      ansible.builtin.debug:
         var: needs_reboot.stdout
       when: FAMILY != 'MacOS'
 ...
-
