@@ -4,10 +4,10 @@
     path: '{{ plugin_path }}'
     owner: pmartin
     state: directory
-    mode: 0700
+    mode: '0700'
 
 - name: Print out plugin_path
-  debug:
+  ansible.builtin.debug:
     var: plugin_path
     verbosity: 1
 
@@ -18,4 +18,5 @@
     dest: '{{ plugin_path }}{{ item.dest }}'
     depth: '{{ item.depth | default(omit) }}'
   loop: '{{ plugin_repos }}'
-
+  become_user: pmartin
+...
