@@ -43,7 +43,6 @@ general_packages:
   - xdotool
   - wmctrl
   - python3-netaddr
-  - python3-networkmanager
   - cmake
   - nodejs
   - pv
