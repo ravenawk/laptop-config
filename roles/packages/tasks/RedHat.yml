@@ -60,4 +60,24 @@
   register: needs_reboot
   ignore_errors: true
   changed_when: false
+
+- name: Find latest release
+  ansible.builtin.uri:
+    url: "{{ release_info }}"
+    return_content: true
+  register: chezmoi_release
+
+- name: Get version number
+  ansible.builtin.set_fact:
+    version: "chezmoi-{{ chezmoi_release.json.name | replace('v', '') }}-x86_64.rpm"
+
+- name: Set download URL
+  ansible.builtin.set_fact:
+    chezmoi_dl_url: "{{ chezmoi_release.json.assets | selectattr('name', 'equalto', version) | map(attribute='browser_download_url') }}"
+
+- name: Install the chezmoi rpm
+  ansible.builtin.dnf:
+    name: "{{ chezmoi_dl_url }}"
+    state: present
+    disable_gpg_check: true
 ...
