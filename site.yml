@@ -30,7 +30,6 @@
       become: true
     - role: setup_user
       become: true
-    - role: setup_zsh
     - role: setup_libvirt
       become: true
       when: FAMILY != 'MacOS'
