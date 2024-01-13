@@ -1,9 +1,0 @@
----
-- name: Make some changes to /etc/libvirt/libvirtd.conf
-  lineinfile:
-    path: /etc/libvirt/libvirtd.conf
-    regex: "{{ item['regexp'] }}"
-    insertafter: "{{ item['regexp'] }}"
-    line: "{{ item['nline'] }}"
-  loop: "{{ libvirtd_changes }}"
-  notify: Restart libvirtd

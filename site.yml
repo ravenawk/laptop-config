@@ -30,9 +30,6 @@
       become: true
     - role: setup_user
       become: true
-    - role: setup_libvirt
-      become: true
-      when: FAMILY != 'MacOS'
 
   tasks:
     - name: Print out reboot var
