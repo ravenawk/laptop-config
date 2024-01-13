@@ -119,6 +119,7 @@ macos_packages:
   - tmux
   - podman
   - tree-sitter
+  - chezmoi
 dnf_options:
   - option: fastestmirror
     value: true
