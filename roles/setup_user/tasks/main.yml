@@ -42,10 +42,11 @@
 
     - name: Download nvim appimage
       changed_when: false
-      get_url:
+      ansible.builtin.get_url:
         url: "{{ dl_url[0] }}"
         dest: /tmp/nvim
         validate_certs: false
+        mode: '0755'
 
     - name: Copy nvim
       ansible.builtin.copy:
