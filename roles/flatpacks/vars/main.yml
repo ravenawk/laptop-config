@@ -1,0 +1,12 @@
+---
+flatpack_packages:
+  - com.bitwarden.desktop
+  - com.discordapp.Discord
+  - com.slack.Slack
+  - net.cozic.joplin_desktop
+  - us.zoom.Zoom
+  - org.signal.Signal
+  - com.todoist.Todoist
+  - com.synology.SynologyDrive
+  - com.spotify.Client
+...

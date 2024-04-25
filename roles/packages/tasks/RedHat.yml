@@ -19,34 +19,6 @@
     name: "{{ packages }}"
     state: present
 
-- name: Get flatpak remote info
-  ansible.builtin.command: flatpak remotes
-  register: _flatpak_remotes
-  changed_when: false
-
-- name: Print out flatpak remote info
-  ansible.builtin.command:
-    cmd: >
-      flatpak remote-add --if-not-exists
-      flathub https://flathub.org/repo/flathub.flatpakrepo
-  when:
-    - "'flathub' in item"
-    - "'filter' in item"
-  loop: "{{ _flatpak_remotes.stdout_lines }}"
-
-- name: Add some flatpak remotes
-  community.general.flatpak_remote:
-    name: flathub
-    state: present
-    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
-
-- name: Install some needed packages with flatpak
-  community.general.flatpak:
-    name: "{{ item }}"
-    state: present
-    remote: flathub
-  loop: "{{ flat_packages }}"
-
 - name: Services that need to be started
   ansible.builtin.service:
     name: "{{ item }}"
@@ -54,30 +26,4 @@
     enabled: true
   loop:
     - sshd
-
-- name: Check if reboot is needed
-  ansible.builtin.command: dnf needs-restarting -r
-  register: needs_reboot
-  ignore_errors: true
-  changed_when: false
-
-- name: Find latest release
-  ansible.builtin.uri:
-    url: "{{ release_info }}"
-    return_content: true
-  register: chezmoi_release
-
-- name: Get version number
-  ansible.builtin.set_fact:
-    version: "chezmoi-{{ chezmoi_release.json.name | replace('v', '') }}-x86_64.rpm"
-
-- name: Set download URL
-  ansible.builtin.set_fact:
-    chezmoi_dl_url: "{{ chezmoi_release.json.assets | selectattr('name', 'equalto', version) | map(attribute='browser_download_url') }}"
-
-- name: Install the chezmoi rpm
-  ansible.builtin.dnf:
-    name: "{{ chezmoi_dl_url }}"
-    state: present
-    disable_gpg_check: true
 ...

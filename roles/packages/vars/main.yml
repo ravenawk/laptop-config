@@ -1,19 +1,7 @@
 ---
 # vars file for roles/update_packages---
 packages: "{{ general_packages | union(lookup('vars', ( FAMILY | lower) + '_packages')) }}"  # yamllint disable-line rule:line-length
-release_info: https://api.github.com/repos/twpayne/chezmoi/releases/latest
 
-flat_packages:
-  - com.bitwarden.desktop
-  - com.discordapp.Discord
-  - com.slack.Slack
-  - net.cozic.joplin_desktop
-  - us.zoom.Zoom
-  - org.signal.Signal
-  - com.todoist.Todoist
-  - com.synology.SynologyDrive
-  - com.spotify.Client
-  - org.wezfurlong.wezterm
 general_packages:
   - vim
   - xclip

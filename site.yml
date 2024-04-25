@@ -28,10 +28,24 @@
       when: FAMILY != 'MacOS'
     - role: packages
       become: true
+    - role: flatpacks
+      become: false
+    - role: chezmoi
+      become: true
+    - role: neovim
+      become: true
+    - role: wezterm
+      become: true
     - role: setup_user
       become: true
 
-  tasks:
+  post_tasks:
+    - name: Check if reboot is needed
+      ansible.builtin.command: dnf needs-restarting -r
+      register: needs_reboot
+      ignore_errors: true
+      changed_when: false
+
     - name: Print out reboot var
       ansible.builtin.debug:
         var: needs_reboot.stdout

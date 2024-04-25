@@ -27,43 +27,10 @@
     group: "{{ setup_user_group }}"
   loop: "{{ user_dirs }}"
 
-- name: Install Neovim when OS not MacOS
-  when: FAMILY != 'MacOS'
-  block:
-    - name: Find latest neovim release
-      ansible.builtin.uri:
-        url: https://api.github.com/repos/neovim/neovim/releases/latest
-        return_content: true
-      register: neovim_release
-
-    - name: Get Neovim download URL
-      ansible.builtin.set_fact:
-        dl_url: "{{ neovim_release.json.assets | selectattr('name', 'equalto', 'nvim.appimage') | map(attribute='browser_download_url') | list }}"
-
-    - name: Download nvim appimage
-      changed_when: false
-      ansible.builtin.get_url:
-        url: "{{ dl_url[0] }}"
-        dest: /tmp/nvim
-        validate_certs: false
-        mode: '0755'
-
-    - name: Copy nvim
-      ansible.builtin.copy:
-        src: /tmp/nvim
-        dest: /usr/local/bin/nvim
-        mode: '0755'
-
-    - name: Remove nvim in tmp dir
-      changed_when: false
-      ansible.builtin.file:
-        name: /tmp/nvim
-        state: absent
-
-    - name: Remove annoying password prompt in FF with Yubikey
-      ansible.builtin.lineinfile:
-        path: /usr/share/p11-kit/modules/opensc.module
-        state: present
-        regexp: '^disable-in'
-        line: 'disable-in: firefox thunderbird'
+- name: Remove annoying password prompt in FF with Yubikey
+  ansible.builtin.lineinfile:
+    path: /usr/share/p11-kit/modules/opensc.module
+    state: present
+    regexp: '^disable-in'
+    line: 'disable-in: firefox thunderbird'
 ...
