@@ -1,17 +1,17 @@
 ---
 - name: Install needed package to enable repo
-  ansible-buildint.yum:
+  ansible.builtin.yum:
     name: fedora-workstation-repositories
     state: latest  # noqa package-latest
 
 - name: Install RPM Fusion repo
-  ansible-buildint.yum:
+  ansible.builtin.yum:
     name: "{{ item }}"
     disable_gpg_check: true
   loop: "{{ repos_rpmfusion }}"
 
 - name: Enable google-chrome repo
-  ansible.bulitin.ini_file:
+  ansible.builtin.ini_file:
     path: /etc/yum.repos.d/google-chrome.repo
     section: google-chrome
     no_extra_spaces: true
