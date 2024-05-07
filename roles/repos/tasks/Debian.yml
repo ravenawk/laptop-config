@@ -3,12 +3,12 @@
   apt_key:
     url: "{{ item.url }}"
     state: "{{ item.state }}"
-  loop: "{{ aptkeys }}"
+  loop: "{{ repos_aptkeys }}"
 
 - name: Enable additional repos
   apt_repository:
     filename: "{{ item.filename }}"
     repo: "{{ item.repo }}"
     validate_certs: "{{ item.validate_certs }}"
-  loop: "{{ other_deb_repos }}"
+  loop: "{{ repos_other_deb }}"
   when: item.pkg_check not in ansible_facts.packages
