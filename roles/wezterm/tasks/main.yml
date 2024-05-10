@@ -1,11 +1,66 @@
 ---
-- name: Enable Wezterm
-  community.general.copr:
-    host: copr.fedorainfracloud.org
-    state: enabled
-    name: wezfurlong/wezterm-nightly
+- name: Install Wezterm when OS not MacOS
+  when: FAMILY != 'MacOS'
+  block:
+    - name: Find latest wezterm release
+      ansible.builtin.uri:
+        url: "{{ wezterm_url }}"
+        return_content: true
+      register: wezterm_release
 
-- name: Install Wezterm
-  ansible.builtin.dnf:
-    name: wezterm
-    state: latest
+    - name: Get Wezterm download URL
+      ansible.builtin.set_fact:
+        dl_url: "{{ wezterm_release.json.assets | selectattr('name', 'contains', 'AppImage') | map(attribute='browser_download_url') | list }}"
+
+    - name: Print out dl_url
+      ansible.builtin.debug:
+        var: wezterm_release.json.assets
+        verbosity: 1
+
+    - name: Download wezterm appimage
+      changed_when: false
+      ansible.builtin.get_url:
+        url: "{{ dl_url[0] }}"
+        dest: /tmp/wezterm
+        validate_certs: false
+        mode: "0755"
+
+    - name: Check if WezTerm exists already
+      changed_when: false
+      ansible.builtin.stat:
+        path: /usr/local/bin/wezterm
+      register: _wezterm_current
+
+    - name: Check version of current WezTerm
+      when: _wezterm_current.stat.exists
+      changed_when: false
+      ansible.builtin.command: /usr/local/bin/wezterm --version
+      register: _wezterm_current_version
+
+    - name: Print out _wezterm_current_version
+      ansible.builtin.debug:
+        var: _wezterm_current_version
+        verbosity: 1
+
+    - name: Check version of downloaded WezTerm
+      changed_when: false
+      ansible.builtin.command: /tmp/wezterm --version
+      register: _wezterm_downloaded_version
+
+    - name: Print out _wezterm_downloaded_version
+      ansible.builtin.debug:
+        var: _wezterm_downloaded_version
+        verbosity: 1
+
+    - name: Copy wezterm
+      when: _wezterm_current_version != _wezterm_downloaded_version
+      ansible.builtin.copy:
+        src: /tmp/wezterm
+        dest: /usr/local/bin/wezterm
+        mode: "0755"
+
+    - name: Remove wezterm in tmp dir
+      changed_when: false
+      ansible.builtin.file:
+        name: /tmp/wezterm
+        state: absent
