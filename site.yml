@@ -45,6 +45,7 @@
       register: needs_reboot
       ignore_errors: true
       changed_when: false
+      when: FAMILY == 'RedHat'
 
     - name: Print out reboot var
       ansible.builtin.debug:

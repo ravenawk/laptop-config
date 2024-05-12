@@ -33,4 +33,5 @@
     state: present
     regexp: '^disable-in'
     line: 'disable-in: firefox thunderbird'
+  when: FAMILY == 'RedHat'
 ...

@@ -97,6 +97,8 @@ debian_packages:
   - uml-utilities
   - podman
   - python3-venv
+  - gopls
+
 macos_packages:
   - ansible
   - zsh
@@ -108,6 +110,7 @@ macos_packages:
   - podman
   - tree-sitter
   - chezmoi
+
 dnf_options:
   - option: fastestmirror
     value: true
