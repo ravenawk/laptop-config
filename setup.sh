@@ -16,9 +16,9 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	esac
 
 	if [[ $FAMILY == "RedHat" ]]; then
-	    if !(rpm -qa | grep -q ansible); then
+	    #if !(rpm -qa | grep -q ansible); then
 		sudo dnf -y install ansible
-	    fi
+	    #fi
 	fi
 
 	if [[ $FAMILY == "Debian" ]]; then
