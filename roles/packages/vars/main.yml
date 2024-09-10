@@ -56,6 +56,7 @@ redhat_packages:
   - cascadia-code-fonts
   - mozilla-fira-mono-fonts
   - mozilla-fira-sans-fonts
+  - jetbrains-mono-fonts-all
   - powerline-fonts
   - fira-code-fonts
   - NetworkManager-openvpn
