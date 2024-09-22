@@ -18,12 +18,5 @@
   ansible.builtin.dnf:
     name: "{{ packages }}"
     state: present
-
-- name: Services that need to be started
-  ansible.builtin.service:
-    name: "{{ item }}"
-    state: started
-    enabled: true
-  loop:
-    - sshd
+  notify: Restart sshd
 ...

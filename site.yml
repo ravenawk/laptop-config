@@ -28,7 +28,7 @@
       when: FAMILY != 'MacOS'
     - role: packages
       become: true
-    - role: flatpacks
+    - role: flatpack
       become: false
     - role: chezmoi
       become: true
