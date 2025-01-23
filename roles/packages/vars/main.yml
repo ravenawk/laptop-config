@@ -50,6 +50,7 @@ general_packages:
   - python3-neovim
   - ripgrep
   - clang
+  - fzf
 
 redhat_packages:
   - mediawriter
@@ -79,6 +80,9 @@ redhat_packages:
   - golang-x-tools-gopls
   - '@Development Tools'
   - '@Virtualization'
+  - gtk4-devel
+  - zig
+  - libadwaita-devel
 
 debian_packages:
   - fonts-cascadia-code
