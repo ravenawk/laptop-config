@@ -9,8 +9,19 @@
       register: neovim_release
 
     - name: Get Neovim download URL
+      ansible.builtin.debug:
+        var: neovim_release
+        verbosity: 1
+
+    - name: Get Neovim download URL
       ansible.builtin.set_fact:
-        dl_url: "{{ neovim_release.json.assets | selectattr('name', 'equalto', 'nvim.appimage') | map(attribute='browser_download_url') | list }}"
+        dl_url: "{{ neovim_release.json.assets | selectattr('name', 'equalto', 'nvim-linux-x86_64.appimage') | map(attribute='browser_download_url') | list }}"
+
+
+    - name: Get Neovim download URL
+      ansible.builtin.debug:
+        var: dl_url
+        verbosity: 1
 
     - name: Download nvim appimage
       changed_when: false
