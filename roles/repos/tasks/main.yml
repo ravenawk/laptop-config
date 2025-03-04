@@ -1,4 +1,4 @@
 ---
-- name: Enable some "{{ FAMILY }}" repos
-  include_tasks:
+- name: Enable repos for "{{ FAMILY }}"
+  ansible.builtin.include_tasks:
     file: "{{ FAMILY }}.yml"
