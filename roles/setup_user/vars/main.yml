@@ -1,15 +1,13 @@
 ---
-nvim_appimage_path: "{{ user_home }}/.local/bin/nvim.appimage"
-
-user_dirs:
+setup_user_dirs:
   - "{{ user_home }}/.local/bin"
   - "{{ user_home }}/Documents/Projects"
   - "{{ user_home }}/Projects"
 
-new_groups:
+setup_user_new_groups:
   - netdev
   - ubridge
-user_groups:
+setup_user_groups:
   - ubridge
   - libvirt
   - dialout

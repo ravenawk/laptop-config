@@ -5,13 +5,13 @@
     name: "{{ item }}"
     system: true
     state: present
-  loop: "{{ new_groups }}"
+  loop: "{{ setup_user_new_groups }}"
   when: FAMILY != 'MacOS'
 
 - name: Configure user
   ansible.builtin.user:
     name: "{{ setup_user_name }}"
-    groups: "{{ (FAMILY != 'MacOS') | ternary(user_groups, omit) }}"
+    groups: "{{ (FAMILY != 'MacOS') | ternary(setup_user_groups, omit) }}"
     append: "{{ (FAMILY != 'MacOS') | ternary(true, omit) }}"
     generate_ssh_key: true
     shell: /bin/zsh
@@ -26,7 +26,7 @@
     mode: '0700'
     owner: "{{ setup_user_name }}"
     group: "{{ setup_user_group }}"
-  loop: "{{ user_dirs }}"
+  loop: "{{ setup_user_dirs }}"
 
 - name: Remove annoying password prompt in FF with Yubikey
   ansible.builtin.lineinfile:
