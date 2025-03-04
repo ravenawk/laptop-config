@@ -1,12 +1,12 @@
 ---
 - name: Add apt keys
-  apt_key:
+  ansible.builtin.apt_key:
     url: "{{ item.url }}"
     state: "{{ item.state }}"
   loop: "{{ repos_aptkeys }}"
 
 - name: Enable additional repos
-  apt_repository:
+  ansible.builtin.apt_repository:
     filename: "{{ item.filename }}"
     repo: "{{ item.repo }}"
     validate_certs: "{{ item.validate_certs }}"

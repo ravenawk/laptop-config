@@ -2,7 +2,7 @@
 nvim_appimage_path: "{{ user_home }}/.local/bin/nvim.appimage"
 
 user_dirs:
-  - "{{ user_home}}/.local/bin"
+  - "{{ user_home }}/.local/bin"
   - "{{ user_home }}/Documents/Projects"
   - "{{ user_home }}/Projects"
 
