@@ -1,18 +1,18 @@
 ---
 # tasks file for roles/update_packages
 - name: Update packages on system
-  apt:
+  ansible.builtin.apt:
     name: "*"
     state: latest  # noqa package-latest
     update_cache: true
 
 - name: Install some needed packages
-  apt:
+  ansible.builtin.apt:
     name: "{{ packages }}"
     state: present
 
 - name: Services that need to be started
-  service:
+  ansible.builtin.service:
     name: "{{ item }}"
     state: started
     enabled: true
