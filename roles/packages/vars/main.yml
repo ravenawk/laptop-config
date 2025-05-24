@@ -36,6 +36,7 @@ general_packages:
   - nodejs
   - pv
   - zsh
+  - fish
   - zsh-syntax-highlighting
   - brave-browser
   - deja-dup
@@ -78,8 +79,7 @@ redhat_packages:
   - fontawesome-fonts
   - spice-protocol
   - golang-x-tools-gopls
-  - '@Development Tools'
-  - '@Virtualization'
+  - development-tools
   - gtk4-devel
   - zig
   - libadwaita-devel
